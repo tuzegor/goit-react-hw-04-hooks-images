@@ -1,7 +1,7 @@
 import styles from './ImageGalleryItem.module.css';
 import PropTypes from 'prop-types';
 
-function ImageGalleryItem({
+export default function ImageGalleryItem({
   id,
   tags,
   webformatURL,
@@ -26,5 +26,3 @@ ImageGalleryItem.propTypes = {
   largeImageURL: PropTypes.string,
   openModal: PropTypes.func,
 };
-
-export default ImageGalleryItem;

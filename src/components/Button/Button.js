@@ -1,9 +1,12 @@
 import styles from './Button.module.css';
 import PropTypes from 'prop-types';
 
-function Button({ loadMore }) {
+export default function Button({ loadMore }) {
   return (
-    <button className={styles.Button} onClick={loadMore}>
+    <button
+      className={styles.Button}
+      onClick={() => loadMore(prevState => prevState + 1)}
+    >
       Load more
     </button>
   );
@@ -12,5 +15,3 @@ function Button({ loadMore }) {
 Button.propTypes = {
   loadMore: PropTypes.func,
 };
-
-export default Button;

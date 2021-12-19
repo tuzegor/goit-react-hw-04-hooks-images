@@ -1,44 +1,37 @@
-import React, { Component } from 'react';
+import { useEffect } from 'react';
 import styles from './Modal.module.css';
 import PropTypes from 'prop-types';
 
-class Modal extends Component {
-  componentDidMount() {
-    window.addEventListener('keydown', this.closePictureByEscape);
-  }
-  componentWillUnmount() {
-    window.removeEventListener('keydown', this.closePictureByEscape);
-  }
+export default function Modal({ picture, closeModal }) {
+  useEffect(() => {
+    window.addEventListener('keydown', closePictureByEscape);
+    return () => {
+      window.removeEventListener('keydown', closePictureByEscape);
+    };
+  });
 
-  closePicture = e => {
+  const closePicture = e => {
     if (e.target === e.currentTarget) {
-      this.props.closeModal();
+      closeModal(false);
     }
   };
 
-  closePictureByEscape = e => {
-    console.log(e);
+  const closePictureByEscape = e => {
     if (e.code === 'Escape') {
-      this.props.closeModal();
+      closeModal(false);
     }
   };
 
-  render() {
-    const { picture } = this.props;
-
-    return (
-      <div className={styles.Overlay} onClick={e => this.closePicture(e)}>
-        <div className={styles.Modal}>
-          <img id={picture.id} src={picture.largeImageURL} alt={picture.tags} />
-        </div>
+  return (
+    <div className={styles.Overlay} onClick={e => closePicture(e)}>
+      <div className={styles.Modal}>
+        <img id={picture.id} src={picture.largeImageURL} alt={picture.tags} />
       </div>
-    );
-  }
+    </div>
+  );
 }
 
 Modal.propTypes = {
   picture: PropTypes.object,
   closeModal: PropTypes.func,
 };
-
-export default Modal;
